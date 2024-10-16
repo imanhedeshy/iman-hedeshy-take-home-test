@@ -1,0 +1,1132 @@
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "client_providers"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "client_providers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "client_id" integer NOT NULL, "provider_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_client_providers_on_client_id_and_provider_id" ON "client_providers" ("client_id", "provider_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_client_providers_on_client_id" ON "client_providers" ("client_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_client_providers_on_provider_id" ON "client_providers" ("provider_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "clients"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "clients" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "email" varchar, "plan" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_clients_on_email" ON "clients" ("email")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "journal_entries"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "journal_entries" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "content" text, "client_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_journal_entries_on_client_id" ON "journal_entries" ("client_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "providers"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "providers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "email" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_providers_on_email" ON "providers" ("email")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aclient_providers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "client_id" integer NOT NULL, "provider_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aclient_providers_on_provider_id" ON "aclient_providers" ("provider_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aclient_providers_on_client_id" ON "aclient_providers" ("client_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "tindex_aclient_providers_on_client_id_and_provider_id" ON "aclient_providers" ("client_id", "provider_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "aclient_providers" ("id","client_id","provider_id","created_at","updated_at")
+                     SELECT "id","client_id","provider_id","created_at","updated_at" FROM "client_providers"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "client_providers"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "client_providers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "client_id" integer NOT NULL, "provider_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_67c6ee7ace"
+FOREIGN KEY ("client_id")
+  REFERENCES "clients" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_client_providers_on_client_id_and_provider_id" ON "client_providers" ("client_id", "provider_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_client_providers_on_client_id" ON "client_providers" ("client_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_client_providers_on_provider_id" ON "client_providers" ("provider_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "client_providers" ("id","client_id","provider_id","created_at","updated_at")
+                     SELECT "id","client_id","provider_id","created_at","updated_at" FROM "aclient_providers"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "aclient_providers"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aclient_providers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "client_id" integer NOT NULL, "provider_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aclient_providers_on_provider_id" ON "aclient_providers" ("provider_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aclient_providers_on_client_id" ON "aclient_providers" ("client_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "tindex_aclient_providers_on_client_id_and_provider_id" ON "aclient_providers" ("client_id", "provider_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "aclient_providers" ("id","client_id","provider_id","created_at","updated_at")
+                     SELECT "id","client_id","provider_id","created_at","updated_at" FROM "client_providers"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "client_providers"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "client_providers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "client_id" integer NOT NULL, "provider_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_67c6ee7ace"
+FOREIGN KEY ("client_id")
+  REFERENCES "clients" ("id")
+, CONSTRAINT "fk_rails_39da854701"
+FOREIGN KEY ("provider_id")
+  REFERENCES "providers" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_client_providers_on_client_id_and_provider_id" ON "client_providers" ("client_id", "provider_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_client_providers_on_client_id" ON "client_providers" ("client_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_client_providers_on_provider_id" ON "client_providers" ("provider_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "client_providers" ("id","client_id","provider_id","created_at","updated_at")
+                     SELECT "id","client_id","provider_id","created_at","updated_at" FROM "aclient_providers"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "aclient_providers"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TEMPORARY TABLE "ajournal_entries" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "content" text, "client_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_ajournal_entries_on_client_id" ON "ajournal_entries" ("client_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "ajournal_entries" ("id","content","client_id","created_at","updated_at")
+                     SELECT "id","content","client_id","created_at","updated_at" FROM "journal_entries"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "journal_entries"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "journal_entries" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "content" text, "client_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_505ddca8e7"
+FOREIGN KEY ("client_id")
+  REFERENCES "clients" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_journal_entries_on_client_id" ON "journal_entries" ("client_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "journal_entries" ("id","content","client_id","created_at","updated_at")
+                     SELECT "id","content","client_id","created_at","updated_at" FROM "ajournal_entries"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "ajournal_entries"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20241015135359)[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20241015135354),
+(20241015135352),
+(20241015135351);[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.0ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'test', '2024-10-15 15:52:30.731903', '2024-10-15 15:52:30.731904') RETURNING "key"[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.0ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', '119e272b4bd95b435d4369340c1eed8ee4ce8166', '2024-10-15 15:52:30.732447', '2024-10-15 15:52:30.732448') RETURNING "key"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.1ms)[0m  [1m[31mDELETE FROM "client_providers";
+DELETE FROM "clients";
+DELETE FROM "journal_entries";
+DELETE FROM "providers";
+INSERT INTO "client_providers" ("id", "client_id", "provider_id", "created_at", "updated_at") VALUES (980190962, 980190962, 980190962, '2024-10-15 15:52:31.074947', '2024-10-15 15:52:31.074947'), (298486374, 298486374, 298486374, '2024-10-15 15:52:31.074947', '2024-10-15 15:52:31.074947');
+INSERT INTO "clients" ("id", "name", "email", "plan", "created_at", "updated_at") VALUES (980190962, 'Alice', 'alice@example.com', 'basic', '2024-10-15 15:52:31.079820', '2024-10-15 15:52:31.079820'), (298486374, 'Bob', 'bob@example.com', 'premium', '2024-10-15 15:52:31.079820', '2024-10-15 15:52:31.079820');
+INSERT INTO "journal_entries" ("id", "content", "client_id", "created_at", "updated_at") VALUES (980190962, 'Feeling great today!', 980190962, '2024-10-15 15:52:31.080946', '2024-10-15 15:52:31.080946'), (298486374, 'Having a tough time', 298486374, '2024-10-15 15:52:31.080946', '2024-10-15 15:52:31.080946');
+INSERT INTO "providers" ("id", "name", "email", "created_at", "updated_at") VALUES (980190962, 'John Doe', 'john@example.com', '2024-10-15 15:52:31.081947', '2024-10-15 15:52:31.081947'), (298486374, 'Jane Smith', 'jane@example.com', '2024-10-15 15:52:31.081947', '2024-10-15 15:52:31.081947')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------------------------------
+JournalEntriesControllerTest: test_should_get_index_for_client's_journal_entries
+--------------------------------------------------------------------------------
+  [1m[36mClient Load (0.2ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Load (0.1ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/clients/980190962/journal_entries" for 127.0.0.1 at 2024-10-15 11:52:31 -0400
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------------
+JournalEntriesControllerTest: test_should_update_journal_entry
+--------------------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started PATCH "/journal_entries/980190962" for 127.0.0.1 at 2024-10-15 11:52:31 -0400
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------------------
+JournalEntriesControllerTest: test_should_show_journal_entry
+------------------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/journal_entries/980190962" for 127.0.0.1 at 2024-10-15 11:52:31 -0400
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------------
+JournalEntriesControllerTest: test_should_create_journal_entry
+--------------------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "journal_entries"[0m
+Started POST "/clients/980190962/journal_entries" for 127.0.0.1 at 2024-10-15 11:52:31 -0400
+JournalEntriesControllerTest - test_should_create_journal_entry: NameError raised.
+If you expected this exception, use `assert_raises` as near to the code that raises as possible.
+Other block based assertions (e.g. `assert_difference`) can be used, as long as `assert_raises` is inside their block.
+
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------
+JournalEntriesControllerTest: test_should_destroy_journal_entry
+---------------------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "journal_entries"[0m
+Started DELETE "/journal_entries/980190962" for 127.0.0.1 at 2024-10-15 11:52:31 -0400
+JournalEntriesControllerTest - test_should_destroy_journal_entry: NameError raised.
+If you expected this exception, use `assert_raises` as near to the code that raises as possible.
+Other block based assertions (e.g. `assert_difference`) can be used, as long as `assert_raises` is inside their block.
+
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------------
+ProvidersControllerTest: test_should_get_all_journal_entries_for_provider
+-------------------------------------------------------------------------
+  [1m[36mProvider Load (0.1ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/providers/980190962/all_journal_entries" for 127.0.0.1 at 2024-10-15 11:52:31 -0400
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------
+ProvidersControllerTest: test_should_update_provider
+----------------------------------------------------
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started PATCH "/providers/980190962" for 127.0.0.1 at 2024-10-15 11:52:31 -0400
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------
+ProvidersControllerTest: test_should_create_provider
+----------------------------------------------------
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mProvider Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "providers"[0m
+Started POST "/providers" for 127.0.0.1 at 2024-10-15 11:52:31 -0400
+ProvidersControllerTest - test_should_create_provider: NameError raised.
+If you expected this exception, use `assert_raises` as near to the code that raises as possible.
+Other block based assertions (e.g. `assert_difference`) can be used, as long as `assert_raises` is inside their block.
+
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------
+ProvidersControllerTest: test_should_show_provider
+--------------------------------------------------
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/providers/980190962" for 127.0.0.1 at 2024-10-15 11:52:31 -0400
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------
+ProvidersControllerTest: test_should_get_clients_for_provider
+-------------------------------------------------------------
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/providers/980190962/clients" for 127.0.0.1 at 2024-10-15 11:52:31 -0400
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------
+ProvidersControllerTest: test_should_get_index
+----------------------------------------------
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/providers" for 127.0.0.1 at 2024-10-15 11:52:31 -0400
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------------------
+ProvidersControllerTest: test_should_destroy_provider
+-----------------------------------------------------
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mProvider Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "providers"[0m
+Started DELETE "/providers/980190962" for 127.0.0.1 at 2024-10-15 11:52:31 -0400
+ProvidersControllerTest - test_should_destroy_provider: NameError raised.
+If you expected this exception, use `assert_raises` as near to the code that raises as possible.
+Other block based assertions (e.g. `assert_difference`) can be used, as long as `assert_raises` is inside their block.
+
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------
+ClientsControllerTest: test_should_get_index
+--------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/clients" for 127.0.0.1 at 2024-10-15 11:52:31 -0400
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------
+ClientsControllerTest: test_should_update_client
+------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started PATCH "/clients/980190962" for 127.0.0.1 at 2024-10-15 11:52:31 -0400
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------
+ClientsControllerTest: test_should_create_client
+------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mClient Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "clients"[0m
+Started POST "/clients" for 127.0.0.1 at 2024-10-15 11:52:31 -0400
+ClientsControllerTest - test_should_create_client: NameError raised.
+If you expected this exception, use `assert_raises` as near to the code that raises as possible.
+Other block based assertions (e.g. `assert_difference`) can be used, as long as `assert_raises` is inside their block.
+
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------
+ClientsControllerTest: test_should_show_client
+----------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/clients/980190962" for 127.0.0.1 at 2024-10-15 11:52:31 -0400
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------------------------------
+ClientsControllerTest: test_should_get_journal_entries_for_client
+-----------------------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/clients/980190962/journal_entries" for 127.0.0.1 at 2024-10-15 11:52:31 -0400
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------------------------
+ClientsControllerTest: test_should_get_providers_for_client
+-----------------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/clients/980190962/providers" for 127.0.0.1 at 2024-10-15 11:52:31 -0400
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------
+ClientsControllerTest: test_should_destroy_client
+-------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mClient Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "clients"[0m
+Started DELETE "/clients/980190962" for 127.0.0.1 at 2024-10-15 11:52:31 -0400
+ClientsControllerTest - test_should_destroy_client: NameError raised.
+If you expected this exception, use `assert_raises` as near to the code that raises as possible.
+Other block based assertions (e.g. `assert_difference`) can be used, as long as `assert_raises` is inside their block.
+
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.7ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.7ms)[0m  [1m[31mDELETE FROM "client_providers";
+DELETE FROM "clients";
+DELETE FROM "journal_entries";
+DELETE FROM "providers";
+INSERT INTO "client_providers" ("id", "client_id", "provider_id", "created_at", "updated_at") VALUES (980190962, 980190962, 980190962, '2024-10-15 15:56:11.775919', '2024-10-15 15:56:11.775919'), (298486374, 298486374, 298486374, '2024-10-15 15:56:11.775919', '2024-10-15 15:56:11.775919');
+INSERT INTO "clients" ("id", "name", "email", "plan", "created_at", "updated_at") VALUES (980190962, 'Alice', 'alice@example.com', 'basic', '2024-10-15 15:56:11.777220', '2024-10-15 15:56:11.777220'), (298486374, 'Bob', 'bob@example.com', 'premium', '2024-10-15 15:56:11.777220', '2024-10-15 15:56:11.777220');
+INSERT INTO "journal_entries" ("id", "content", "client_id", "created_at", "updated_at") VALUES (980190962, 'Feeling great today!', 980190962, '2024-10-15 15:56:11.777445', '2024-10-15 15:56:11.777445'), (298486374, 'Having a tough time', 298486374, '2024-10-15 15:56:11.777445', '2024-10-15 15:56:11.777445');
+INSERT INTO "providers" ("id", "name", "email", "created_at", "updated_at") VALUES (980190962, 'John Doe', 'john@example.com', '2024-10-15 15:56:11.777787', '2024-10-15 15:56:11.777787'), (298486374, 'Jane Smith', 'jane@example.com', '2024-10-15 15:56:11.777787', '2024-10-15 15:56:11.777787')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------
+ClientsControllerTest: test_should_get_index
+--------------------------------------------
+  [1m[36mClient Load (0.1ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/clients" for 127.0.0.1 at 2024-10-15 11:56:11 -0400
+Processing by ClientsController#index as HTML
+Completed 500 Internal Server Error in 78ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------
+ClientsControllerTest: test_should_update_client
+------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started PATCH "/clients/980190962" for 127.0.0.1 at 2024-10-15 11:56:11 -0400
+Processing by ClientsController#update as HTML
+  Parameters: {"client"=>{"name"=>"Updated Name"}, "id"=>"980190962"}
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mClient Update (0.0ms)[0m  [1m[33mUPDATE "clients" SET "name" = ?, "updated_at" = ? WHERE "clients"."id" = ?[0m  [["name", "Updated Name"], ["updated_at", "2024-10-15 15:56:11.969710"], ["id", 980190962]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.2ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------------------------------
+ClientsControllerTest: test_should_get_journal_entries_for_client
+-----------------------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/clients/980190962/journal_entries" for 127.0.0.1 at 2024-10-15 11:56:11 -0400
+Processing by JournalEntriesController#index as HTML
+  Parameters: {"client_id"=>"980190962"}
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 44ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------
+ClientsControllerTest: test_should_destroy_client
+-------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mClient Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "clients"[0m
+Started DELETE "/clients/980190962" for 127.0.0.1 at 2024-10-15 11:56:12 -0400
+Processing by ClientsController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mClient Destroy (0.2ms)[0m  [1m[31mDELETE FROM "clients" WHERE "clients"."id" = ?[0m  [["id", 980190962]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.2ms (2 queries, 0 cached) | GC: 0.0ms)
+ClientsControllerTest - test_should_destroy_client: ActiveRecord::InvalidForeignKey raised.
+If you expected this exception, use `assert_raises` as near to the code that raises as possible.
+Other block based assertions (e.g. `assert_difference`) can be used, as long as `assert_raises` is inside their block.
+
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------------------------
+ClientsControllerTest: test_should_get_providers_for_client
+-----------------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/clients/980190962/providers" for 127.0.0.1 at 2024-10-15 11:56:12 -0400
+  
+AbstractController::ActionNotFound (The action 'providers' could not be found for ClientsController):
+  
+test/controllers/clients_controller_test.rb:38:in `block in <class:ClientsControllerTest>'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------
+ClientsControllerTest: test_should_show_client
+----------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/clients/980190962" for 127.0.0.1 at 2024-10-15 11:56:12 -0400
+Processing by ClientsController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Load (0.1ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."client_id" = ?[0m  [["client_id", 980190962]]
+Completed 200 OK in 31ms (Views: 0.2ms | ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.3ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------
+ClientsControllerTest: test_should_create_client
+------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mClient Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "clients"[0m
+Started POST "/clients" for 127.0.0.1 at 2024-10-15 11:56:12 -0400
+Processing by ClientsController#create as HTML
+  Parameters: {"client"=>{"name"=>"New Client", "email"=>"[FILTERED]", "plan"=>"basic"}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mClient Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "clients" WHERE "clients"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mClient Create (0.1ms)[0m  [1m[32mINSERT INTO "clients" ("name", "email", "plan", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "New Client"], ["email", "[FILTERED]"], ["plan", "basic"], ["created_at", "2024-10-15 15:56:12.314282"], ["updated_at", "2024-10-15 15:56:12.314282"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 201 Created in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mClient Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "clients"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------------------------------
+JournalEntriesControllerTest: test_should_get_index_for_client's_journal_entries
+--------------------------------------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/clients/980190962/journal_entries" for 127.0.0.1 at 2024-10-15 11:56:12 -0400
+Processing by JournalEntriesController#index as HTML
+  Parameters: {"client_id"=>"980190962"}
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 0ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------------------
+JournalEntriesControllerTest: test_should_show_journal_entry
+------------------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/journal_entries/980190962" for 127.0.0.1 at 2024-10-15 11:56:12 -0400
+Processing by JournalEntriesController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------------
+JournalEntriesControllerTest: test_should_update_journal_entry
+--------------------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started PATCH "/journal_entries/980190962" for 127.0.0.1 at 2024-10-15 11:56:12 -0400
+Processing by JournalEntriesController#update as HTML
+  Parameters: {"journal_entry"=>{"content"=>"Updated Content"}, "id"=>"980190962"}
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mJournalEntry Update (0.1ms)[0m  [1m[33mUPDATE "journal_entries" SET "content" = ?, "updated_at" = ? WHERE "journal_entries"."id" = ?[0m  [["content", "Updated Content"], ["updated_at", "2024-10-15 15:56:12.319140"], ["id", 980190962]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 200 OK in 1ms (Views: 0.0ms | ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------
+JournalEntriesControllerTest: test_should_destroy_journal_entry
+---------------------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "journal_entries"[0m
+Started DELETE "/journal_entries/980190962" for 127.0.0.1 at 2024-10-15 11:56:12 -0400
+Processing by JournalEntriesController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mJournalEntry Destroy (0.1ms)[0m  [1m[31mDELETE FROM "journal_entries" WHERE "journal_entries"."id" = ?[0m  [["id", 980190962]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 204 No Content in 0ms (ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mJournalEntry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "journal_entries"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------------
+JournalEntriesControllerTest: test_should_create_journal_entry
+--------------------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "journal_entries"[0m
+Started POST "/clients/980190962/journal_entries" for 127.0.0.1 at 2024-10-15 11:56:12 -0400
+Processing by JournalEntriesController#create as HTML
+  Parameters: {"journal_entry"=>{"content"=>"New Entry"}, "client_id"=>"980190962"}
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mJournalEntry Create (0.1ms)[0m  [1m[32mINSERT INTO "journal_entries" ("content", "client_id", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["content", "New Entry"], ["client_id", 980190962], ["created_at", "2024-10-15 15:56:12.322282"], ["updated_at", "2024-10-15 15:56:12.322282"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 201 Created in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mJournalEntry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "journal_entries"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------------
+ProvidersControllerTest: test_should_get_all_journal_entries_for_provider
+-------------------------------------------------------------------------
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/providers/980190962/all_journal_entries" for 127.0.0.1 at 2024-10-15 11:56:12 -0400
+  
+AbstractController::ActionNotFound (The action 'all_journal_entries' could not be found for ProvidersController):
+  
+test/controllers/providers_controller_test.rb:43:in `block in <class:ProvidersControllerTest>'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------
+ProvidersControllerTest: test_should_update_provider
+----------------------------------------------------
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started PATCH "/providers/980190962" for 127.0.0.1 at 2024-10-15 11:56:12 -0400
+Processing by ProvidersController#update as HTML
+  Parameters: {"provider"=>{"name"=>"Updated Name"}, "id"=>"980190962"}
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProvider Update (0.0ms)[0m  [1m[33mUPDATE "providers" SET "name" = ?, "updated_at" = ? WHERE "providers"."id" = ?[0m  [["name", "Updated Name"], ["updated_at", "2024-10-15 15:56:12.388923"], ["id", 980190962]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.2ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------
+ProvidersControllerTest: test_should_get_clients_for_provider
+-------------------------------------------------------------
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/providers/980190962/clients" for 127.0.0.1 at 2024-10-15 11:56:12 -0400
+  
+AbstractController::ActionNotFound (The action 'clients' could not be found for ProvidersController):
+  
+test/controllers/providers_controller_test.rb:38:in `block in <class:ProvidersControllerTest>'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------------------
+ProvidersControllerTest: test_should_destroy_provider
+-----------------------------------------------------
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mProvider Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "providers"[0m
+Started DELETE "/providers/980190962" for 127.0.0.1 at 2024-10-15 11:56:12 -0400
+Processing by ProvidersController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProvider Destroy (0.1ms)[0m  [1m[31mDELETE FROM "providers" WHERE "providers"."id" = ?[0m  [["id", 980190962]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+Completed 500 Internal Server Error in 0ms (ActiveRecord: 0.2ms (2 queries, 0 cached) | GC: 0.0ms)
+ProvidersControllerTest - test_should_destroy_provider: ActiveRecord::InvalidForeignKey raised.
+If you expected this exception, use `assert_raises` as near to the code that raises as possible.
+Other block based assertions (e.g. `assert_difference`) can be used, as long as `assert_raises` is inside their block.
+
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------
+ProvidersControllerTest: test_should_get_index
+----------------------------------------------
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/providers" for 127.0.0.1 at 2024-10-15 11:56:12 -0400
+Processing by ProvidersController#index as HTML
+Completed 500 Internal Server Error in 0ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------
+ProvidersControllerTest: test_should_show_provider
+--------------------------------------------------
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/providers/980190962" for 127.0.0.1 at 2024-10-15 11:56:12 -0400
+Processing by ProvidersController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mClientProvider Load (0.1ms)[0m  [1m[34mSELECT "client_providers".* FROM "client_providers" WHERE "client_providers"."provider_id" = ?[0m  [["provider_id", 980190962]]
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ?[0m  [["id", 980190962]]
+Completed 200 OK in 19ms (Views: 0.1ms | ActiveRecord: 0.1ms (3 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------
+ProvidersControllerTest: test_should_create_provider
+----------------------------------------------------
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mProvider Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "providers"[0m
+Started POST "/providers" for 127.0.0.1 at 2024-10-15 11:56:12 -0400
+Processing by ProvidersController#create as HTML
+  Parameters: {"provider"=>{"name"=>"New Provider", "email"=>"[FILTERED]"}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProvider Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "providers" WHERE "providers"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mProvider Create (0.1ms)[0m  [1m[32mINSERT INTO "providers" ("name", "email", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "New Provider"], ["email", "[FILTERED]"], ["created_at", "2024-10-15 15:56:12.485030"], ["updated_at", "2024-10-15 15:56:12.485030"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 201 Created in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mProvider Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "providers"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.4ms)[0m  [1m[31mDELETE FROM "client_providers";
+DELETE FROM "clients";
+DELETE FROM "journal_entries";
+DELETE FROM "providers";
+INSERT INTO "client_providers" ("id", "client_id", "provider_id", "created_at", "updated_at") VALUES (980190962, 980190962, 980190962, '2024-10-15 16:02:37.670211', '2024-10-15 16:02:37.670211'), (298486374, 298486374, 298486374, '2024-10-15 16:02:37.670211', '2024-10-15 16:02:37.670211');
+INSERT INTO "clients" ("id", "name", "email", "plan", "created_at", "updated_at") VALUES (980190962, 'Alice', 'alice@example.com', 'basic', '2024-10-15 16:02:37.671201', '2024-10-15 16:02:37.671201'), (298486374, 'Bob', 'bob@example.com', 'premium', '2024-10-15 16:02:37.671201', '2024-10-15 16:02:37.671201');
+INSERT INTO "journal_entries" ("id", "content", "client_id", "created_at", "updated_at") VALUES (980190962, 'Feeling great today!', 980190962, '2024-10-15 16:02:37.671437', '2024-10-15 16:02:37.671437'), (298486374, 'Having a tough time', 298486374, '2024-10-15 16:02:37.671437', '2024-10-15 16:02:37.671437');
+INSERT INTO "providers" ("id", "name", "email", "created_at", "updated_at") VALUES (980190962, 'John Doe', 'john@example.com', '2024-10-15 16:02:37.671787', '2024-10-15 16:02:37.671787'), (298486374, 'Jane Smith', 'jane@example.com', '2024-10-15 16:02:37.671787', '2024-10-15 16:02:37.671787')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------
+JournalEntriesControllerTest: test_should_destroy_journal_entry
+---------------------------------------------------------------
+  [1m[36mClient Load (0.1ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "journal_entries"[0m
+Started DELETE "/journal_entries/980190962" for 127.0.0.1 at 2024-10-15 12:02:37 -0400
+Processing by JournalEntriesController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mJournalEntry Destroy (0.1ms)[0m  [1m[31mDELETE FROM "journal_entries" WHERE "journal_entries"."id" = ?[0m  [["id", 980190962]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 204 No Content in 5ms (ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mJournalEntry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "journal_entries"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------------
+JournalEntriesControllerTest: test_should_update_journal_entry
+--------------------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started PATCH "/journal_entries/980190962" for 127.0.0.1 at 2024-10-15 12:02:37 -0400
+Processing by JournalEntriesController#update as HTML
+  Parameters: {"journal_entry"=>{"content"=>"Updated Content"}, "id"=>"980190962"}
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mCACHE Client Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mJournalEntry Update (0.1ms)[0m  [1m[33mUPDATE "journal_entries" SET "content" = ?, "updated_at" = ? WHERE "journal_entries"."id" = ?[0m  [["content", "Updated Content"], ["updated_at", "2024-10-15 16:02:37.743902"], ["id", 980190962]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 200 OK in 5ms (Views: 0.1ms | ActiveRecord: 0.1ms (3 queries, 1 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------------
+JournalEntriesControllerTest: test_should_create_journal_entry
+--------------------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "journal_entries"[0m
+Started POST "/clients/980190962/journal_entries" for 127.0.0.1 at 2024-10-15 12:02:37 -0400
+Processing by JournalEntriesController#create as HTML
+  Parameters: {"journal_entry"=>{"content"=>"New Entry"}, "client_id"=>"980190962"}
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mJournalEntry Create (0.2ms)[0m  [1m[32mINSERT INTO "journal_entries" ("content", "client_id", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["content", "New Entry"], ["client_id", 980190962], ["created_at", "2024-10-15 16:02:37.748492"], ["updated_at", "2024-10-15 16:02:37.748492"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 201 Created in 3ms (Views: 0.1ms | ActiveRecord: 0.2ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mJournalEntry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "journal_entries"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------------------
+JournalEntriesControllerTest: test_should_show_journal_entry
+------------------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/journal_entries/980190962" for 127.0.0.1 at 2024-10-15 12:02:37 -0400
+Processing by JournalEntriesController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------------------------------
+JournalEntriesControllerTest: test_should_get_index_for_client's_journal_entries
+--------------------------------------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/clients/980190962/journal_entries" for 127.0.0.1 at 2024-10-15 12:02:37 -0400
+Processing by JournalEntriesController#index as HTML
+  Parameters: {"client_id"=>"980190962"}
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Load (0.1ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."client_id" = ? ORDER BY "journal_entries"."created_at" DESC LIMIT ? OFFSET ?[0m  [["client_id", 980190962], ["LIMIT", 10], ["OFFSET", 0]]
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------
+ProvidersControllerTest: test_should_get_clients_for_provider
+-------------------------------------------------------------
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/providers/980190962/clients" for 127.0.0.1 at 2024-10-15 12:02:37 -0400
+  
+AbstractController::ActionNotFound (The action 'clients' could not be found for ProvidersController):
+  
+test/controllers/providers_controller_test.rb:38:in `block in <class:ProvidersControllerTest>'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------
+ProvidersControllerTest: test_should_create_provider
+----------------------------------------------------
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mProvider Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "providers"[0m
+Started POST "/providers" for 127.0.0.1 at 2024-10-15 12:02:37 -0400
+Processing by ProvidersController#create as HTML
+  Parameters: {"provider"=>{"name"=>"New Provider", "email"=>"[FILTERED]"}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProvider Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "providers" WHERE "providers"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mProvider Create (0.0ms)[0m  [1m[32mINSERT INTO "providers" ("name", "email", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "New Provider"], ["email", "[FILTERED]"], ["created_at", "2024-10-15 16:02:37.857769"], ["updated_at", "2024-10-15 16:02:37.857769"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 201 Created in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mProvider Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "providers"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------------------
+ProvidersControllerTest: test_should_destroy_provider
+-----------------------------------------------------
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mProvider Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "providers"[0m
+Started DELETE "/providers/980190962" for 127.0.0.1 at 2024-10-15 12:02:37 -0400
+Processing by ProvidersController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mClientProvider Load (0.1ms)[0m  [1m[34mSELECT "client_providers".* FROM "client_providers" WHERE "client_providers"."provider_id" = ?[0m  [["provider_id", 980190962]]
+  [1m[36mClientProvider Destroy (0.0ms)[0m  [1m[31mDELETE FROM "client_providers" WHERE "client_providers"."id" = ?[0m  [["id", 980190962]]
+  [1m[36mProvider Destroy (0.0ms)[0m  [1m[31mDELETE FROM "providers" WHERE "providers"."id" = ?[0m  [["id", 980190962]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 204 No Content in 2ms (ActiveRecord: 0.1ms (4 queries, 0 cached) | GC: 0.1ms)
+  [1m[36mProvider Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "providers"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------
+ProvidersControllerTest: test_should_update_provider
+----------------------------------------------------
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started PATCH "/providers/980190962" for 127.0.0.1 at 2024-10-15 12:02:37 -0400
+Processing by ProvidersController#update as HTML
+  Parameters: {"provider"=>{"name"=>"Updated Name"}, "id"=>"980190962"}
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProvider Update (0.0ms)[0m  [1m[33mUPDATE "providers" SET "name" = ?, "updated_at" = ? WHERE "providers"."id" = ?[0m  [["name", "Updated Name"], ["updated_at", "2024-10-15 16:02:37.861992"], ["id", 980190962]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.1ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------
+ProvidersControllerTest: test_should_get_index
+----------------------------------------------
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/providers" for 127.0.0.1 at 2024-10-15 12:02:37 -0400
+Processing by ProvidersController#index as HTML
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" LIMIT ? OFFSET ?[0m  [["LIMIT", 10], ["OFFSET", 0]]
+Completed 200 OK in 0ms (Views: 0.2ms | ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------------
+ProvidersControllerTest: test_should_get_all_journal_entries_for_provider
+-------------------------------------------------------------------------
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/providers/980190962/all_journal_entries" for 127.0.0.1 at 2024-10-15 12:02:37 -0400
+  
+AbstractController::ActionNotFound (The action 'all_journal_entries' could not be found for ProvidersController):
+  
+test/controllers/providers_controller_test.rb:43:in `block in <class:ProvidersControllerTest>'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------
+ProvidersControllerTest: test_should_show_provider
+--------------------------------------------------
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/providers/980190962" for 127.0.0.1 at 2024-10-15 12:02:37 -0400
+Processing by ProvidersController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mClientProvider Load (0.0ms)[0m  [1m[34mSELECT "client_providers".* FROM "client_providers" WHERE "client_providers"."provider_id" = ?[0m  [["provider_id", 980190962]]
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ?[0m  [["id", 980190962]]
+Completed 200 OK in 6ms (Views: 0.1ms | ActiveRecord: 0.1ms (3 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------------------------------
+ClientsControllerTest: test_should_get_journal_entries_for_client
+-----------------------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/clients/980190962/journal_entries" for 127.0.0.1 at 2024-10-15 12:02:37 -0400
+Processing by JournalEntriesController#index as HTML
+  Parameters: {"client_id"=>"980190962"}
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."client_id" = ? ORDER BY "journal_entries"."created_at" DESC LIMIT ? OFFSET ?[0m  [["client_id", 980190962], ["LIMIT", 10], ["OFFSET", 0]]
+Completed 200 OK in 0ms (Views: 0.2ms | ActiveRecord: 0.0ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------
+ClientsControllerTest: test_should_create_client
+------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mClient Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "clients"[0m
+Started POST "/clients" for 127.0.0.1 at 2024-10-15 12:02:37 -0400
+Processing by ClientsController#create as HTML
+  Parameters: {"client"=>{"name"=>"New Client", "email"=>"[FILTERED]", "plan"=>"basic"}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mClient Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "clients" WHERE "clients"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mClient Create (0.1ms)[0m  [1m[32mINSERT INTO "clients" ("name", "email", "plan", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "New Client"], ["email", "[FILTERED]"], ["plan", "basic"], ["created_at", "2024-10-15 16:02:37.940813"], ["updated_at", "2024-10-15 16:02:37.940813"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 201 Created in 1ms (Views: 0.1ms | ActiveRecord: 0.2ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mClient Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "clients"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------
+ClientsControllerTest: test_should_destroy_client
+-------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mClient Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "clients"[0m
+Started DELETE "/clients/980190962" for 127.0.0.1 at 2024-10-15 12:02:37 -0400
+Processing by ClientsController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mClientProvider Load (0.1ms)[0m  [1m[34mSELECT "client_providers".* FROM "client_providers" WHERE "client_providers"."client_id" = ?[0m  [["client_id", 980190962]]
+  [1m[36mClientProvider Destroy (0.0ms)[0m  [1m[31mDELETE FROM "client_providers" WHERE "client_providers"."id" = ?[0m  [["id", 980190962]]
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."client_id" = ?[0m  [["client_id", 980190962]]
+  [1m[36mJournalEntry Destroy (0.0ms)[0m  [1m[31mDELETE FROM "journal_entries" WHERE "journal_entries"."id" = ?[0m  [["id", 980190962]]
+  [1m[36mClient Destroy (0.0ms)[0m  [1m[31mDELETE FROM "clients" WHERE "clients"."id" = ?[0m  [["id", 980190962]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 204 No Content in 1ms (ActiveRecord: 0.2ms (6 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mClient Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "clients"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------
+ClientsControllerTest: test_should_update_client
+------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started PATCH "/clients/980190962" for 127.0.0.1 at 2024-10-15 12:02:37 -0400
+Processing by ClientsController#update as HTML
+  Parameters: {"client"=>{"name"=>"Updated Name"}, "id"=>"980190962"}
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mClient Update (0.0ms)[0m  [1m[33mUPDATE "clients" SET "name" = ?, "updated_at" = ? WHERE "clients"."id" = ?[0m  [["name", "Updated Name"], ["updated_at", "2024-10-15 16:02:37.944487"], ["id", 980190962]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 200 OK in 1ms (Views: 0.0ms | ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------------------------
+ClientsControllerTest: test_should_get_providers_for_client
+-----------------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/clients/980190962/providers" for 127.0.0.1 at 2024-10-15 12:02:37 -0400
+  
+AbstractController::ActionNotFound (The action 'providers' could not be found for ClientsController):
+  
+test/controllers/clients_controller_test.rb:38:in `block in <class:ClientsControllerTest>'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------
+ClientsControllerTest: test_should_get_index
+--------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/clients" for 127.0.0.1 at 2024-10-15 12:02:38 -0400
+Processing by ClientsController#index as HTML
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" LIMIT ? OFFSET ?[0m  [["LIMIT", 10], ["OFFSET", 0]]
+Completed 200 OK in 0ms (Views: 0.2ms | ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------
+ClientsControllerTest: test_should_show_client
+----------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/clients/980190962" for 127.0.0.1 at 2024-10-15 12:02:38 -0400
+Processing by ClientsController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."client_id" = ?[0m  [["client_id", 980190962]]
+Completed 200 OK in 0ms (Views: 0.0ms | ActiveRecord: 0.0ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.9ms)[0m  [1m[31mDELETE FROM "client_providers";
+DELETE FROM "clients";
+DELETE FROM "journal_entries";
+DELETE FROM "providers";
+INSERT INTO "client_providers" ("id", "client_id", "provider_id", "created_at", "updated_at") VALUES (980190962, 980190962, 980190962, '2024-10-15 16:08:20.371808', '2024-10-15 16:08:20.371808'), (298486374, 298486374, 298486374, '2024-10-15 16:08:20.371808', '2024-10-15 16:08:20.371808');
+INSERT INTO "clients" ("id", "name", "email", "plan", "created_at", "updated_at") VALUES (980190962, 'Alice', 'alice@example.com', 'basic', '2024-10-15 16:08:20.372954', '2024-10-15 16:08:20.372954'), (298486374, 'Bob', 'bob@example.com', 'premium', '2024-10-15 16:08:20.372954', '2024-10-15 16:08:20.372954');
+INSERT INTO "journal_entries" ("id", "content", "client_id", "created_at", "updated_at") VALUES (980190962, 'Feeling great today!', 980190962, '2024-10-15 16:08:20.373176', '2024-10-15 16:08:20.373176'), (298486374, 'Having a tough time', 298486374, '2024-10-15 16:08:20.373176', '2024-10-15 16:08:20.373176');
+INSERT INTO "providers" ("id", "name", "email", "created_at", "updated_at") VALUES (980190962, 'John Doe', 'john@example.com', '2024-10-15 16:08:20.373531', '2024-10-15 16:08:20.373531'), (298486374, 'Jane Smith', 'jane@example.com', '2024-10-15 16:08:20.373531', '2024-10-15 16:08:20.373531')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------------------------------
+JournalEntriesControllerTest: test_should_get_index_for_client's_journal_entries
+--------------------------------------------------------------------------------
+  [1m[36mClient Load (0.1ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/clients/980190962/journal_entries" for 127.0.0.1 at 2024-10-15 12:08:20 -0400
+Processing by JournalEntriesController#index as HTML
+  Parameters: {"client_id"=>"980190962"}
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Load (0.1ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."client_id" = ? ORDER BY "journal_entries"."created_at" DESC LIMIT ? OFFSET ?[0m  [["client_id", 980190962], ["LIMIT", 10], ["OFFSET", 0]]
+Completed 200 OK in 12ms (Views: 1.6ms | ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------------------
+JournalEntriesControllerTest: test_should_show_journal_entry
+------------------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/journal_entries/980190962" for 127.0.0.1 at 2024-10-15 12:08:20 -0400
+Processing by JournalEntriesController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------------
+JournalEntriesControllerTest: test_should_update_journal_entry
+--------------------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started PATCH "/journal_entries/980190962" for 127.0.0.1 at 2024-10-15 12:08:20 -0400
+Processing by JournalEntriesController#update as HTML
+  Parameters: {"journal_entry"=>{"content"=>"Updated Content"}, "id"=>"980190962"}
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mCACHE Client Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mJournalEntry Update (0.1ms)[0m  [1m[33mUPDATE "journal_entries" SET "content" = ?, "updated_at" = ? WHERE "journal_entries"."id" = ?[0m  [["content", "Updated Content"], ["updated_at", "2024-10-15 16:08:20.461074"], ["id", 980190962]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 200 OK in 2ms (Views: 0.0ms | ActiveRecord: 0.1ms (3 queries, 1 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------------------
+JournalEntriesControllerTest: test_should_create_journal_entry
+--------------------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "journal_entries"[0m
+Started POST "/clients/980190962/journal_entries" for 127.0.0.1 at 2024-10-15 12:08:20 -0400
+Processing by JournalEntriesController#create as HTML
+  Parameters: {"journal_entry"=>{"content"=>"New Entry"}, "client_id"=>"980190962"}
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mJournalEntry Create (0.1ms)[0m  [1m[32mINSERT INTO "journal_entries" ("content", "client_id", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["content", "New Entry"], ["client_id", 980190962], ["created_at", "2024-10-15 16:08:20.462800"], ["updated_at", "2024-10-15 16:08:20.462800"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 201 Created in 1ms (Views: 0.0ms | ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mJournalEntry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "journal_entries"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------------
+JournalEntriesControllerTest: test_should_destroy_journal_entry
+---------------------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "journal_entries"[0m
+Started DELETE "/journal_entries/980190962" for 127.0.0.1 at 2024-10-15 12:08:20 -0400
+Processing by JournalEntriesController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mJournalEntry Destroy (0.1ms)[0m  [1m[31mDELETE FROM "journal_entries" WHERE "journal_entries"."id" = ?[0m  [["id", 980190962]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 204 No Content in 0ms (ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mJournalEntry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "journal_entries"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------
+ProvidersControllerTest: test_should_get_clients_for_provider
+-------------------------------------------------------------
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/providers/980190962/clients" for 127.0.0.1 at 2024-10-15 12:08:20 -0400
+Processing by ProvidersController#clients as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" INNER JOIN "client_providers" ON "clients"."id" = "client_providers"."client_id" WHERE "client_providers"."provider_id" = ?[0m  [["provider_id", 980190962]]
+Completed 200 OK in 8ms (Views: 6.3ms | ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------
+ProvidersControllerTest: test_should_create_provider
+----------------------------------------------------
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mProvider Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "providers"[0m
+Started POST "/providers" for 127.0.0.1 at 2024-10-15 12:08:20 -0400
+Processing by ProvidersController#create as HTML
+  Parameters: {"provider"=>{"name"=>"New Provider", "email"=>"[FILTERED]"}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProvider Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "providers" WHERE "providers"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mProvider Create (0.0ms)[0m  [1m[32mINSERT INTO "providers" ("name", "email", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "New Provider"], ["email", "[FILTERED]"], ["created_at", "2024-10-15 16:08:20.477008"], ["updated_at", "2024-10-15 16:08:20.477008"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 201 Created in 1ms (Views: 0.0ms | ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mProvider Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "providers"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------------
+ProvidersControllerTest: test_should_get_all_journal_entries_for_provider
+-------------------------------------------------------------------------
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/providers/980190962/all_journal_entries" for 127.0.0.1 at 2024-10-15 12:08:20 -0400
+Processing by ProvidersController#all_journal_entries as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mClient Ids (0.1ms)[0m  [1m[34mSELECT "clients"."id" FROM "clients" INNER JOIN "client_providers" ON "clients"."id" = "client_providers"."client_id" WHERE "client_providers"."provider_id" = ?[0m  [["provider_id", 980190962]]
+  [1m[36mJournalEntry Load (0.2ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" INNER JOIN "clients" ON "clients"."id" = "journal_entries"."client_id" WHERE "clients"."id" = ? ORDER BY "journal_entries"."created_at" DESC[0m  [["id", 980190962]]
+Completed 200 OK in 32ms (Views: 23.1ms | ActiveRecord: 0.3ms (3 queries, 0 cached) | GC: 6.7ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------
+ProvidersControllerTest: test_should_update_provider
+----------------------------------------------------
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started PATCH "/providers/980190962" for 127.0.0.1 at 2024-10-15 12:08:20 -0400
+Processing by ProvidersController#update as HTML
+  Parameters: {"provider"=>{"name"=>"Updated Name"}, "id"=>"980190962"}
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProvider Update (0.0ms)[0m  [1m[33mUPDATE "providers" SET "name" = ?, "updated_at" = ? WHERE "providers"."id" = ?[0m  [["name", "Updated Name"], ["updated_at", "2024-10-15 16:08:20.512522"], ["id", 980190962]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.2ms (2 queries, 0 cached) | GC: 0.3ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------
+ProvidersControllerTest: test_should_get_index
+----------------------------------------------
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/providers" for 127.0.0.1 at 2024-10-15 12:08:20 -0400
+Processing by ProvidersController#index as HTML
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" LIMIT ? OFFSET ?[0m  [["LIMIT", 10], ["OFFSET", 0]]
+Completed 200 OK in 0ms (Views: 0.2ms | ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------------------
+ProvidersControllerTest: test_should_destroy_provider
+-----------------------------------------------------
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mProvider Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "providers"[0m
+Started DELETE "/providers/980190962" for 127.0.0.1 at 2024-10-15 12:08:20 -0400
+Processing by ProvidersController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mClientProvider Load (0.1ms)[0m  [1m[34mSELECT "client_providers".* FROM "client_providers" WHERE "client_providers"."provider_id" = ?[0m  [["provider_id", 980190962]]
+  [1m[36mClientProvider Destroy (0.0ms)[0m  [1m[31mDELETE FROM "client_providers" WHERE "client_providers"."id" = ?[0m  [["id", 980190962]]
+  [1m[36mProvider Destroy (0.0ms)[0m  [1m[31mDELETE FROM "providers" WHERE "providers"."id" = ?[0m  [["id", 980190962]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 204 No Content in 2ms (ActiveRecord: 0.1ms (4 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mProvider Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "providers"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------------
+ProvidersControllerTest: test_should_show_provider
+--------------------------------------------------
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/providers/980190962" for 127.0.0.1 at 2024-10-15 12:08:20 -0400
+Processing by ProvidersController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mClientProvider Load (0.0ms)[0m  [1m[34mSELECT "client_providers".* FROM "client_providers" WHERE "client_providers"."provider_id" = ?[0m  [["provider_id", 980190962]]
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ?[0m  [["id", 980190962]]
+Completed 200 OK in 5ms (Views: 0.1ms | ActiveRecord: 0.1ms (3 queries, 0 cached) | GC: 0.2ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------------------------------
+ClientsControllerTest: test_should_get_journal_entries_for_client
+-----------------------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/clients/980190962/journal_entries" for 127.0.0.1 at 2024-10-15 12:08:20 -0400
+Processing by JournalEntriesController#index as HTML
+  Parameters: {"client_id"=>"980190962"}
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."client_id" = ? ORDER BY "journal_entries"."created_at" DESC LIMIT ? OFFSET ?[0m  [["client_id", 980190962], ["LIMIT", 10], ["OFFSET", 0]]
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------
+ClientsControllerTest: test_should_create_client
+------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mClient Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "clients"[0m
+Started POST "/clients" for 127.0.0.1 at 2024-10-15 12:08:20 -0400
+Processing by ClientsController#create as HTML
+  Parameters: {"client"=>{"name"=>"New Client", "email"=>"[FILTERED]", "plan"=>"basic"}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mClient Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "clients" WHERE "clients"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mClient Create (0.0ms)[0m  [1m[32mINSERT INTO "clients" ("name", "email", "plan", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "New Client"], ["email", "[FILTERED]"], ["plan", "basic"], ["created_at", "2024-10-15 16:08:20.527377"], ["updated_at", "2024-10-15 16:08:20.527377"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 201 Created in 1ms (Views: 0.0ms | ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mClient Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "clients"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+--------------------------------------------
+ClientsControllerTest: test_should_get_index
+--------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/clients" for 127.0.0.1 at 2024-10-15 12:08:20 -0400
+Processing by ClientsController#index as HTML
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" LIMIT ? OFFSET ?[0m  [["LIMIT", 10], ["OFFSET", 0]]
+Completed 200 OK in 0ms (Views: 0.2ms | ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------
+ClientsControllerTest: test_should_update_client
+------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started PATCH "/clients/980190962" for 127.0.0.1 at 2024-10-15 12:08:20 -0400
+Processing by ClientsController#update as HTML
+  Parameters: {"client"=>{"name"=>"Updated Name"}, "id"=>"980190962"}
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mClient Update (0.0ms)[0m  [1m[33mUPDATE "clients" SET "name" = ?, "updated_at" = ? WHERE "clients"."id" = ?[0m  [["name", "Updated Name"], ["updated_at", "2024-10-15 16:08:20.529930"], ["id", 980190962]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------------------------
+ClientsControllerTest: test_should_get_providers_for_client
+-----------------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/clients/980190962/providers" for 127.0.0.1 at 2024-10-15 12:08:20 -0400
+Processing by ClientsController#providers as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mProvider Load (0.1ms)[0m  [1m[34mSELECT "providers".* FROM "providers" INNER JOIN "client_providers" ON "providers"."id" = "client_providers"."provider_id" WHERE "client_providers"."client_id" = ?[0m  [["client_id", 980190962]]
+Completed 200 OK in 2ms (Views: 1.2ms | ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.6ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------
+ClientsControllerTest: test_should_destroy_client
+-------------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mClient Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "clients"[0m
+Started DELETE "/clients/980190962" for 127.0.0.1 at 2024-10-15 12:08:20 -0400
+Processing by ClientsController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mClientProvider Load (0.6ms)[0m  [1m[34mSELECT "client_providers".* FROM "client_providers" WHERE "client_providers"."client_id" = ?[0m  [["client_id", 980190962]]
+  [1m[36mClientProvider Destroy (0.0ms)[0m  [1m[31mDELETE FROM "client_providers" WHERE "client_providers"."id" = ?[0m  [["id", 980190962]]
+  [1m[36mJournalEntry Load (0.6ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."client_id" = ?[0m  [["client_id", 980190962]]
+  [1m[36mJournalEntry Destroy (0.0ms)[0m  [1m[31mDELETE FROM "journal_entries" WHERE "journal_entries"."id" = ?[0m  [["id", 980190962]]
+  [1m[36mClient Destroy (0.0ms)[0m  [1m[31mDELETE FROM "clients" WHERE "clients"."id" = ?[0m  [["id", 980190962]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 204 No Content in 3ms (ActiveRecord: 1.2ms (6 queries, 0 cached) | GC: 2.3ms)
+  [1m[36mClient Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "clients"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------
+ClientsControllerTest: test_should_show_client
+----------------------------------------------
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+Started GET "/clients/980190962" for 127.0.0.1 at 2024-10-15 12:08:20 -0400
+Processing by ClientsController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."client_id" = ?[0m  [["client_id", 980190962]]
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms (2 queries, 0 cached) | GC: 0.5ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m

@@ -1,0 +1,9 @@
+one:
+  name: Alice
+  email: alice@example.com
+  plan: basic
+
+two:
+  name: Bob
+  email: bob@example.com
+  plan: premium

@@ -1,0 +1,425 @@
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY) /*application='RailsBackend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2024-10-14 08:02:05.266162', '2024-10-14 08:02:05.266166') RETURNING "key" /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='RailsBackend'*/[0m
+Started GET "/" for ::1 at 2024-10-14 04:03:48 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='RailsBackend'*/[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/imanhedeshy/.asdf/installs/ruby/3.3.5/lib/ruby/gems/3.3.0/gems/railties-8.0.0.beta1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/imanhedeshy/.asdf/installs/ruby/3.3.5/lib/ruby/gems/3.3.0/gems/railties-8.0.0.beta1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 1.9ms | GC: 1.6ms)
+Completed 200 OK in 69ms (Views: 20.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 11.2ms)
+
+
+Started GET "/icon.png" for ::1 at 2024-10-14 04:03:48 -0400
+  
+ActionController::RoutingError (No route matches [GET] "/icon.png"):
+  
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='RailsBackend'*/[0m
+Migrating to CreateProviders (20241015135351)
+  [1m[35mSQL (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "providers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "email" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_providers_on_email" ON "providers" ("email") /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20241015135351') RETURNING "version" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+Migrating to CreateClients (20241015135352)
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "clients" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "email" varchar, "plan" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_clients_on_email" ON "clients" ("email") /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20241015135352') RETURNING "version" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+Migrating to CreateClientProviders (20241015135354)
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "client_providers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "client_id" integer NOT NULL, "provider_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_67c6ee7ace"
+FOREIGN KEY ("client_id")
+  REFERENCES "clients" ("id")
+, CONSTRAINT "fk_rails_39da854701"
+FOREIGN KEY ("provider_id")
+  REFERENCES "providers" ("id")
+) /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_client_providers_on_client_id" ON "client_providers" ("client_id") /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_client_providers_on_provider_id" ON "client_providers" ("provider_id") /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_client_providers_on_client_id_and_provider_id" ON "client_providers" ("client_id", "provider_id") /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20241015135354') RETURNING "version" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+Migrating to CreateJournalEntries (20241015135359)
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "journal_entries" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "content" text, "client_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_505ddca8e7"
+FOREIGN KEY ("client_id")
+  REFERENCES "clients" ("id")
+) /*application='RailsBackend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_journal_entries_on_client_id" ON "journal_entries" ("client_id") /*application='RailsBackend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_journal_entries_on_client_id" ON "journal_entries" ("client_id") /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='RailsBackend'*/[0m
+Migrating to CreateClientProviders (20241015135354)
+  [1m[35mSQL (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mDROP INDEX "index_client_providers_on_client_id_and_provider_id" /*application='RailsBackend'*/[0m
+  [1m[35m (1.0ms)[0m  [1m[35mDROP TABLE "client_providers" /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Destroy (0.1ms)[0m  [1m[31mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = '20241015135354' /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (1.4ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='RailsBackend'*/[0m
+Migrating to CreateClientProviders (20241015135354)
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "client_providers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "client_id" integer NOT NULL, "provider_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_67c6ee7ace"
+FOREIGN KEY ("client_id")
+  REFERENCES "clients" ("id")
+, CONSTRAINT "fk_rails_39da854701"
+FOREIGN KEY ("provider_id")
+  REFERENCES "providers" ("id")
+) /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_client_providers_on_client_id" ON "client_providers" ("client_id") /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_client_providers_on_provider_id" ON "client_providers" ("provider_id") /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_client_providers_on_client_id_and_provider_id" ON "client_providers" ("client_id", "provider_id") /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20241015135354') RETURNING "version" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+Migrating to CreateJournalEntries (20241015135359)
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "journal_entries" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "content" text, "client_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_505ddca8e7"
+FOREIGN KEY ("client_id")
+  REFERENCES "clients" ("id")
+) /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_journal_entries_on_client_id" ON "journal_entries" ("client_id") /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20241015135359') RETURNING "version" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mProvider Exists? (1.5ms)[0m  [1m[34mSELECT 1 AS one FROM "providers" WHERE "providers"."email" = 'john@example.com' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mProvider Create (0.4ms)[0m  [1m[32mINSERT INTO "providers" ("name", "email", "created_at", "updated_at") VALUES ('John Doe', 'john@example.com', '2024-10-15 14:27:50.110772', '2024-10-15 14:27:50.110772') RETURNING "id" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mProvider Exists? (3.1ms)[0m  [1m[34mSELECT 1 AS one FROM "providers" WHERE "providers"."email" = 'jane@example.com' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mProvider Create (0.1ms)[0m  [1m[32mINSERT INTO "providers" ("name", "email", "created_at", "updated_at") VALUES ('Jane Smith', 'jane@example.com', '2024-10-15 14:27:50.120085', '2024-10-15 14:27:50.120085') RETURNING "id" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mProvider Exists? (4.8ms)[0m  [1m[34mSELECT 1 AS one FROM "providers" WHERE "providers"."email" = 'greg.house@example.com' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mProvider Create (0.0ms)[0m  [1m[32mINSERT INTO "providers" ("name", "email", "created_at", "updated_at") VALUES ('Dr. Greg House', 'greg.house@example.com', '2024-10-15 14:27:50.129211', '2024-10-15 14:27:50.129211') RETURNING "id" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mProvider Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "providers" WHERE "providers"."email" = 'meredith.grey@example.com' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mProvider Create (0.0ms)[0m  [1m[32mINSERT INTO "providers" ("name", "email", "created_at", "updated_at") VALUES ('Dr. Meredith Grey', 'meredith.grey@example.com', '2024-10-15 14:27:50.131680', '2024-10-15 14:27:50.131680') RETURNING "id" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mClient Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "clients" WHERE "clients"."email" = 'alice.johnson@example.com' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mClient Create (0.0ms)[0m  [1m[32mINSERT INTO "clients" ("name", "email", "plan", "created_at", "updated_at") VALUES ('Alice Johnson', 'alice.johnson@example.com', 'basic', '2024-10-15 14:27:50.136879', '2024-10-15 14:27:50.136879') RETURNING "id" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mClient Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "clients" WHERE "clients"."email" = 'bob.white@example.com' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mClient Create (0.0ms)[0m  [1m[32mINSERT INTO "clients" ("name", "email", "plan", "created_at", "updated_at") VALUES ('Bob White', 'bob.white@example.com', 'premium', '2024-10-15 14:27:50.138498', '2024-10-15 14:27:50.138498') RETURNING "id" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mClient Exists? (4.4ms)[0m  [1m[34mSELECT 1 AS one FROM "clients" WHERE "clients"."email" = 'charlie.brown@example.com' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mClient Create (0.0ms)[0m  [1m[32mINSERT INTO "clients" ("name", "email", "plan", "created_at", "updated_at") VALUES ('Charlie Brown', 'charlie.brown@example.com', 'basic', '2024-10-15 14:27:50.144074', '2024-10-15 14:27:50.144074') RETURNING "id" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mClient Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "clients" WHERE "clients"."email" = 'david.parker@example.com' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mClient Create (0.1ms)[0m  [1m[32mINSERT INTO "clients" ("name", "email", "plan", "created_at", "updated_at") VALUES ('David Parker', 'david.parker@example.com', 'premium', '2024-10-15 14:27:50.145635', '2024-10-15 14:27:50.145635') RETURNING "id" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."email" = 'alice.johnson@example.com' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."email" = 'bob.white@example.com' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."email" = 'john@example.com' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."email" = 'jane@example.com' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mClientProvider Create (0.7ms)[0m  [1m[32mINSERT INTO "client_providers" ("client_id", "provider_id", "created_at", "updated_at") VALUES (1, 1, '2024-10-15 14:27:50.192402', '2024-10-15 14:27:50.192402') RETURNING "id" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mClientProvider Create (0.4ms)[0m  [1m[32mINSERT INTO "client_providers" ("client_id", "provider_id", "created_at", "updated_at") VALUES (1, 2, '2024-10-15 14:27:50.194246', '2024-10-15 14:27:50.194246') RETURNING "id" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mClientProvider Create (0.5ms)[0m  [1m[32mINSERT INTO "client_providers" ("client_id", "provider_id", "created_at", "updated_at") VALUES (2, 2, '2024-10-15 14:27:50.198944', '2024-10-15 14:27:50.198944') RETURNING "id" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mJournalEntry Create (0.6ms)[0m  [1m[32mINSERT INTO "journal_entries" ("content", "client_id", "created_at", "updated_at") VALUES ('Feeling great today!', 1, '2024-10-15 14:27:50.218441', '2024-10-15 14:27:50.218441') RETURNING "id" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mJournalEntry Create (0.4ms)[0m  [1m[32mINSERT INTO "journal_entries" ("content", "client_id", "created_at", "updated_at") VALUES ('Had a tough workout, but pushed through.', 1, '2024-10-15 14:27:50.220148', '2024-10-15 14:27:50.220148') RETURNING "id" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mJournalEntry Create (0.5ms)[0m  [1m[32mINSERT INTO "journal_entries" ("content", "client_id", "created_at", "updated_at") VALUES ('Working on my mental health.', 2, '2024-10-15 14:27:50.221887', '2024-10-15 14:27:50.221887') RETURNING "id" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mProvider Load (9.4ms)[0m  [1m[34mSELECT "providers".* FROM "providers" /* loading for pp */ LIMIT 11 /*application='RailsBackend'*/[0m
+  [1m[36mClient Load (1.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" /* loading for pp */ LIMIT 11 /*application='RailsBackend'*/[0m
+  [1m[36mJournalEntry Load (0.9ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" /* loading for pp */ LIMIT 11 /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mProvider Load (8.4ms)[0m  [1m[34mSELECT "providers".* FROM "providers" ORDER BY "providers"."id" ASC LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "client_providers" /*application='RailsBackend'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "client_providers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "client_id" integer NOT NULL, "provider_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='RailsBackend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_client_providers_on_client_id_and_provider_id" ON "client_providers" ("client_id", "provider_id") /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_client_providers_on_client_id" ON "client_providers" ("client_id") /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_client_providers_on_provider_id" ON "client_providers" ("provider_id") /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "clients" /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "clients" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "email" varchar, "plan" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_clients_on_email" ON "clients" ("email") /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "journal_entries" /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "journal_entries" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "content" text, "client_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_journal_entries_on_client_id" ON "journal_entries" ("client_id") /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "providers" /*application='RailsBackend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "providers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "email" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_providers_on_email" ON "providers" ("email") /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[35mPRAGMA foreign_keys /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aclient_providers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "client_id" integer NOT NULL, "provider_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aclient_providers_on_provider_id" ON "aclient_providers" ("provider_id") /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aclient_providers_on_client_id" ON "aclient_providers" ("client_id") /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "tindex_aclient_providers_on_client_id_and_provider_id" ON "aclient_providers" ("client_id", "provider_id") /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "aclient_providers" ("id","client_id","provider_id","created_at","updated_at")
+                     SELECT "id","client_id","provider_id","created_at","updated_at" FROM "client_providers" /*application='RailsBackend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "client_providers" /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "client_providers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "client_id" integer NOT NULL, "provider_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_67c6ee7ace"
+FOREIGN KEY ("client_id")
+  REFERENCES "clients" ("id")
+) /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_client_providers_on_client_id_and_provider_id" ON "client_providers" ("client_id", "provider_id") /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_client_providers_on_client_id" ON "client_providers" ("client_id") /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_client_providers_on_provider_id" ON "client_providers" ("provider_id") /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "client_providers" ("id","client_id","provider_id","created_at","updated_at")
+                     SELECT "id","client_id","provider_id","created_at","updated_at" FROM "aclient_providers" /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "aclient_providers" /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0 /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1 /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[35mPRAGMA foreign_keys /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aclient_providers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "client_id" integer NOT NULL, "provider_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aclient_providers_on_provider_id" ON "aclient_providers" ("provider_id") /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aclient_providers_on_client_id" ON "aclient_providers" ("client_id") /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "tindex_aclient_providers_on_client_id_and_provider_id" ON "aclient_providers" ("client_id", "provider_id") /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "aclient_providers" ("id","client_id","provider_id","created_at","updated_at")
+                     SELECT "id","client_id","provider_id","created_at","updated_at" FROM "client_providers" /*application='RailsBackend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "client_providers" /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "client_providers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "client_id" integer NOT NULL, "provider_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_67c6ee7ace"
+FOREIGN KEY ("client_id")
+  REFERENCES "clients" ("id")
+, CONSTRAINT "fk_rails_39da854701"
+FOREIGN KEY ("provider_id")
+  REFERENCES "providers" ("id")
+) /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_client_providers_on_client_id_and_provider_id" ON "client_providers" ("client_id", "provider_id") /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_client_providers_on_client_id" ON "client_providers" ("client_id") /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_client_providers_on_provider_id" ON "client_providers" ("provider_id") /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "client_providers" ("id","client_id","provider_id","created_at","updated_at")
+                     SELECT "id","client_id","provider_id","created_at","updated_at" FROM "aclient_providers" /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "aclient_providers" /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0 /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1 /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[35mPRAGMA foreign_keys /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TEMPORARY TABLE "ajournal_entries" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "content" text, "client_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_ajournal_entries_on_client_id" ON "ajournal_entries" ("client_id") /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "ajournal_entries" ("id","content","client_id","created_at","updated_at")
+                     SELECT "id","content","client_id","created_at","updated_at" FROM "journal_entries" /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "journal_entries" /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "journal_entries" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "content" text, "client_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_505ddca8e7"
+FOREIGN KEY ("client_id")
+  REFERENCES "clients" ("id")
+) /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_journal_entries_on_client_id" ON "journal_entries" ("client_id") /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "journal_entries" ("id","content","client_id","created_at","updated_at")
+                     SELECT "id","content","client_id","created_at","updated_at" FROM "ajournal_entries" /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "ajournal_entries" /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0 /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1 /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY) /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='RailsBackend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20241015135359) /*application='RailsBackend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20241015135354),
+(20241015135352),
+(20241015135351); /*application='RailsBackend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.0ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2024-10-15 14:51:59.543191', '2024-10-15 14:51:59.543192') RETURNING "key" /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'schema_sha1' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.0ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', '119e272b4bd95b435d4369340c1eed8ee4ce8166', '2024-10-15 14:51:59.544633', '2024-10-15 14:51:59.544634') RETURNING "key" /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='RailsBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='RailsBackend'*/[0m
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."name" = 'John Doe' AND "providers"."email" = 'john@example.com' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mProvider Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "providers" WHERE "providers"."email" = 'john@example.com' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mProvider Create (0.1ms)[0m  [1m[32mINSERT INTO "providers" ("name", "email", "created_at", "updated_at") VALUES ('John Doe', 'john@example.com', '2024-10-15 14:52:06.243476', '2024-10-15 14:52:06.243476') RETURNING "id" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."name" = 'Jane Smith' AND "providers"."email" = 'jane@example.com' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mProvider Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "providers" WHERE "providers"."email" = 'jane@example.com' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mProvider Create (0.0ms)[0m  [1m[32mINSERT INTO "providers" ("name", "email", "created_at", "updated_at") VALUES ('Jane Smith', 'jane@example.com', '2024-10-15 14:52:06.245892', '2024-10-15 14:52:06.245892') RETURNING "id" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."name" = 'Dr. Greg House' AND "providers"."email" = 'greg.house@example.com' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mProvider Exists? (5.4ms)[0m  [1m[34mSELECT 1 AS one FROM "providers" WHERE "providers"."email" = 'greg.house@example.com' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mProvider Create (0.0ms)[0m  [1m[32mINSERT INTO "providers" ("name", "email", "created_at", "updated_at") VALUES ('Dr. Greg House', 'greg.house@example.com', '2024-10-15 14:52:06.252847', '2024-10-15 14:52:06.252847') RETURNING "id" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mProvider Load (0.0ms)[0m  [1m[34mSELECT "providers".* FROM "providers" WHERE "providers"."name" = 'Dr. Meredith Grey' AND "providers"."email" = 'meredith.grey@example.com' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mProvider Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "providers" WHERE "providers"."email" = 'meredith.grey@example.com' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mProvider Create (0.0ms)[0m  [1m[32mINSERT INTO "providers" ("name", "email", "created_at", "updated_at") VALUES ('Dr. Meredith Grey', 'meredith.grey@example.com', '2024-10-15 14:52:06.254880', '2024-10-15 14:52:06.254880') RETURNING "id" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."name" = 'Alice Johnson' AND "clients"."email" = 'alice.johnson@example.com' AND "clients"."plan" = 'basic' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mClient Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "clients" WHERE "clients"."email" = 'alice.johnson@example.com' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mClient Create (0.0ms)[0m  [1m[32mINSERT INTO "clients" ("name", "email", "plan", "created_at", "updated_at") VALUES ('Alice Johnson', 'alice.johnson@example.com', 'basic', '2024-10-15 14:52:06.260993', '2024-10-15 14:52:06.260993') RETURNING "id" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."name" = 'Bob White' AND "clients"."email" = 'bob.white@example.com' AND "clients"."plan" = 'premium' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mClient Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "clients" WHERE "clients"."email" = 'bob.white@example.com' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mClient Create (0.1ms)[0m  [1m[32mINSERT INTO "clients" ("name", "email", "plan", "created_at", "updated_at") VALUES ('Bob White', 'bob.white@example.com', 'premium', '2024-10-15 14:52:06.267078', '2024-10-15 14:52:06.267078') RETURNING "id" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."name" = 'Charlie Brown' AND "clients"."email" = 'charlie.brown@example.com' AND "clients"."plan" = 'basic' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mClient Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "clients" WHERE "clients"."email" = 'charlie.brown@example.com' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mClient Create (0.0ms)[0m  [1m[32mINSERT INTO "clients" ("name", "email", "plan", "created_at", "updated_at") VALUES ('Charlie Brown', 'charlie.brown@example.com', 'basic', '2024-10-15 14:52:06.269142', '2024-10-15 14:52:06.269142') RETURNING "id" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mClient Load (0.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."name" = 'David Parker' AND "clients"."email" = 'david.parker@example.com' AND "clients"."plan" = 'premium' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mClient Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "clients" WHERE "clients"."email" = 'david.parker@example.com' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[36mClient Create (0.0ms)[0m  [1m[32mINSERT INTO "clients" ("name", "email", "plan", "created_at", "updated_at") VALUES ('David Parker', 'david.parker@example.com', 'premium', '2024-10-15 14:52:06.271229', '2024-10-15 14:52:06.271229') RETURNING "id" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mClient Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "clients" INNER JOIN "client_providers" ON "clients"."id" = "client_providers"."client_id" WHERE "client_providers"."provider_id" = 1 AND "clients"."id" = 1 LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mClientProvider Create (0.1ms)[0m  [1m[32mINSERT INTO "client_providers" ("client_id", "provider_id", "created_at", "updated_at") VALUES (1, 1, '2024-10-15 14:52:06.319824', '2024-10-15 14:52:06.319824') RETURNING "id" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mClient Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "clients" INNER JOIN "client_providers" ON "clients"."id" = "client_providers"."client_id" WHERE "client_providers"."provider_id" = 2 AND "clients"."id" = 1 LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mClientProvider Create (0.4ms)[0m  [1m[32mINSERT INTO "client_providers" ("client_id", "provider_id", "created_at", "updated_at") VALUES (1, 2, '2024-10-15 14:52:06.321947', '2024-10-15 14:52:06.321947') RETURNING "id" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mClient Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "clients" INNER JOIN "client_providers" ON "clients"."id" = "client_providers"."client_id" WHERE "client_providers"."provider_id" = 2 AND "clients"."id" = 2 LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mClientProvider Create (0.5ms)[0m  [1m[32mINSERT INTO "client_providers" ("client_id", "provider_id", "created_at", "updated_at") VALUES (2, 2, '2024-10-15 14:52:06.323569', '2024-10-15 14:52:06.323569') RETURNING "id" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."client_id" = 1 AND "journal_entries"."content" = 'Feeling great today!' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mJournalEntry Create (0.1ms)[0m  [1m[32mINSERT INTO "journal_entries" ("content", "client_id", "created_at", "updated_at") VALUES ('Feeling great today!', 1, '2024-10-15 14:52:06.347105', '2024-10-15 14:52:06.347105') RETURNING "id" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (19.4ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mJournalEntry Load (0.1ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."client_id" = 1 AND "journal_entries"."content" = 'Had a tough workout, but pushed through.' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mJournalEntry Create (0.4ms)[0m  [1m[32mINSERT INTO "journal_entries" ("content", "client_id", "created_at", "updated_at") VALUES ('Had a tough workout, but pushed through.', 1, '2024-10-15 14:52:06.417294', '2024-10-15 14:52:06.417294') RETURNING "id" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mJournalEntry Load (0.0ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."client_id" = 2 AND "journal_entries"."content" = 'Working on my mental health.' LIMIT 1 /*application='RailsBackend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RailsBackend'*/[0m
+  [1m[36mJournalEntry Create (0.4ms)[0m  [1m[32mINSERT INTO "journal_entries" ("content", "client_id", "created_at", "updated_at") VALUES ('Working on my mental health.', 2, '2024-10-15 14:52:06.419104', '2024-10-15 14:52:06.419104') RETURNING "id" /*application='RailsBackend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RailsBackend'*/[0m
+Started GET "/" for ::1 at 2024-10-15 12:31:26 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='RailsBackend'*/[0m
+Processing by Rails::WelcomeController#index as */*
+  Parameters: {"title"=>"sadkjfh", "author"=>"asdfasdf", "description"=>"sadfsdaf", "welcome"=>{"title"=>"sadkjfh", "author"=>"asdfasdf", "description"=>"sadfsdaf"}}
+  Rendering /Users/imanhedeshy/.asdf/installs/ruby/3.3.5/lib/ruby/gems/3.3.0/gems/railties-8.0.0.beta1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/imanhedeshy/.asdf/installs/ruby/3.3.5/lib/ruby/gems/3.3.0/gems/railties-8.0.0.beta1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.9ms | GC: 0.0ms)
+Completed 200 OK in 135ms (Views: 23.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/providers" for ::1 at 2024-10-15 12:31:34 -0400
+Processing by ProvidersController#index as */*
+  Parameters: {"title"=>"sadkjfh", "author"=>"asdfasdf", "description"=>"sadfsdaf", "provider"=>{}}
+  [1m[36mProvider Load (2.6ms)[0m  [1m[34mSELECT "providers".* FROM "providers" LIMIT 10 OFFSET 0 /*action='index',application='RailsBackend',controller='providers'*/[0m
+  ↳ app/controllers/providers_controller.rb:5:in `index'
+Completed 200 OK in 43ms (Views: 2.2ms | ActiveRecord: 5.5ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/clients" for ::1 at 2024-10-15 12:31:39 -0400
+Processing by ClientsController#index as */*
+  Parameters: {"title"=>"sadkjfh", "author"=>"asdfasdf", "description"=>"sadfsdaf", "client"=>{}}
+  [1m[36mClient Load (0.4ms)[0m  [1m[34mSELECT "clients".* FROM "clients" LIMIT 10 OFFSET 0 /*action='index',application='RailsBackend',controller='clients'*/[0m
+  ↳ app/controllers/clients_controller.rb:5:in `index'
+Completed 200 OK in 3ms (Views: 2.1ms | ActiveRecord: 0.7ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/clients/3/journals" for ::1 at 2024-10-15 12:31:46 -0400
+  
+ActionController::RoutingError (No route matches [GET] "/clients/3/journals"):
+  
+Started GET "/clients/3/journal_entries" for ::1 at 2024-10-15 12:31:59 -0400
+Processing by JournalEntriesController#index as */*
+  Parameters: {"title"=>"sadkjfh", "author"=>"asdfasdf", "description"=>"sadfsdaf", "client_id"=>"3", "journal_entry"=>{}}
+  [1m[36mClient Load (0.1ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = 3 LIMIT 1 /*action='index',application='RailsBackend',controller='journal_entries'*/[0m
+  ↳ app/controllers/journal_entries_controller.rb:4:in `index'
+  [1m[36mJournalEntry Load (0.3ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."client_id" = 3 ORDER BY "journal_entries"."created_at" DESC LIMIT 10 OFFSET 0 /*action='index',application='RailsBackend',controller='journal_entries'*/[0m
+  ↳ app/controllers/journal_entries_controller.rb:6:in `index'
+Completed 200 OK in 78ms (Views: 1.8ms | ActiveRecord: 1.0ms (2 queries, 0 cached) | GC: 0.5ms)
+
+
+Started GET "/clients/1/journal_entries%20" for ::1 at 2024-10-15 12:32:03 -0400
+  
+ActionController::RoutingError (No route matches [GET] "/clients/1/journal_entries%20"):
+  
+Started GET "/clients//journal_entries%202" for ::1 at 2024-10-15 12:32:06 -0400
+Processing by ClientsController#show as */*
+  Parameters: {"title"=>"sadkjfh", "author"=>"asdfasdf", "description"=>"sadfsdaf", "id"=>"journal_entries 2", "client"=>{}}
+  [1m[36mClient Load (0.3ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = NULL LIMIT 1 /*action='show',application='RailsBackend',controller='clients'*/[0m
+  ↳ app/controllers/clients_controller.rb:10:in `show'
+Completed 404 Not Found in 63ms (Views: 0.1ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/clients/2/journal_entries" for ::1 at 2024-10-15 12:32:10 -0400
+Processing by JournalEntriesController#index as */*
+  Parameters: {"title"=>"sadkjfh", "author"=>"asdfasdf", "description"=>"sadfsdaf", "client_id"=>"2", "journal_entry"=>{}}
+  [1m[36mClient Load (0.2ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = 2 LIMIT 1 /*action='index',application='RailsBackend',controller='journal_entries'*/[0m
+  ↳ app/controllers/journal_entries_controller.rb:4:in `index'
+  [1m[36mJournalEntry Load (0.1ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."client_id" = 2 ORDER BY "journal_entries"."created_at" DESC LIMIT 10 OFFSET 0 /*action='index',application='RailsBackend',controller='journal_entries'*/[0m
+  ↳ app/controllers/journal_entries_controller.rb:6:in `index'
+Completed 200 OK in 22ms (Views: 19.6ms | ActiveRecord: 0.3ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/clients/3/journal_entries" for ::1 at 2024-10-15 12:32:16 -0400
+Processing by JournalEntriesController#index as */*
+  Parameters: {"title"=>"sadkjfh", "author"=>"asdfasdf", "description"=>"sadfsdaf", "client_id"=>"3", "journal_entry"=>{}}
+  [1m[36mClient Load (0.1ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = 3 LIMIT 1 /*action='index',application='RailsBackend',controller='journal_entries'*/[0m
+  ↳ app/controllers/journal_entries_controller.rb:4:in `index'
+  [1m[36mJournalEntry Load (0.1ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."client_id" = 3 ORDER BY "journal_entries"."created_at" DESC LIMIT 10 OFFSET 0 /*action='index',application='RailsBackend',controller='journal_entries'*/[0m
+  ↳ app/controllers/journal_entries_controller.rb:6:in `index'
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.2ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/clients//journal_entries567567" for ::1 at 2024-10-15 12:32:20 -0400
+Processing by ClientsController#show as */*
+  Parameters: {"title"=>"sadkjfh", "author"=>"asdfasdf", "description"=>"sadfsdaf", "id"=>"journal_entries567567", "client"=>{}}
+  [1m[36mClient Load (0.1ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = NULL LIMIT 1 /*action='show',application='RailsBackend',controller='clients'*/[0m
+  ↳ app/controllers/clients_controller.rb:10:in `show'
+Completed 404 Not Found in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/clients/1" for ::1 at 2024-10-15 12:32:26 -0400
+Processing by ClientsController#show as */*
+  Parameters: {"title"=>"sadkjfh", "author"=>"asdfasdf", "description"=>"sadfsdaf", "id"=>"1", "client"=>{}}
+  [1m[36mClient Load (0.1ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = 1 LIMIT 1 /*action='show',application='RailsBackend',controller='clients'*/[0m
+  ↳ app/controllers/clients_controller.rb:10:in `show'
+  [1m[36mJournalEntry Load (0.1ms)[0m  [1m[34mSELECT "journal_entries".* FROM "journal_entries" WHERE "journal_entries"."client_id" = 1 /*action='show',application='RailsBackend',controller='clients'*/[0m
+  ↳ app/controllers/clients_controller.rb:10:in `show'
+Completed 200 OK in 41ms (Views: 0.2ms | ActiveRecord: 0.2ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/clients/10" for ::1 at 2024-10-15 12:32:29 -0400
+Processing by ClientsController#show as */*
+  Parameters: {"title"=>"sadkjfh", "author"=>"asdfasdf", "description"=>"sadfsdaf", "id"=>"10", "client"=>{}}
+  [1m[36mClient Load (0.2ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = 10 LIMIT 1 /*action='show',application='RailsBackend',controller='clients'*/[0m
+  ↳ app/controllers/clients_controller.rb:10:in `show'
+Completed 404 Not Found in 3ms (Views: 0.2ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.1ms)
+
+
